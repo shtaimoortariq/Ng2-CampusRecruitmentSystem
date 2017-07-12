@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 // ------------ Angular Material Libraries 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdRadioModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
@@ -19,6 +19,8 @@ import { SignupComponent } from './signup/signup.component';
 
 // ------------- Routing
 import { AppRoutes } from './routes';
+
+
 
 @NgModule({
   declarations: [
@@ -35,10 +37,12 @@ import { AppRoutes } from './routes';
     NoopAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,
+    MdRadioModule,
     MdInputModule,
     MdToolbarModule,
     FlexLayoutModule,
-    AppRoutes
+    AppRoutes,
+    ReactiveFormsModule
   ],
 
   providers: [],

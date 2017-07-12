@@ -1,3 +1,29 @@
-<p>
-  signup works!
-</p>
+<md-toolbar color="primary"> Signup </md-toolbar>
+
+<div class="container">
+  <form [formGroup]="signupForm" novalidate>
+    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Email" type="email" formControlName="userName" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
+      </md-input-container>
+
+      <md-radio-group formControlName="designation">
+        <md-radio-button value="student">Student</md-radio-button>
+        <md-radio-button value="organization">Organization</md-radio-button>
+      </md-radio-group>
+
+
+      <button md-raised-button color="primary" [disabled]="signupForm.status=='INVALID'" (click)="data()">Signup</button>
+      
+      <div *ngIf="">
+          <p>True</p>
+      </div>
+
+    </div>
+  </form>
+</div>
