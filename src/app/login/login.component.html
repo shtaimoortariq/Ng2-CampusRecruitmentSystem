@@ -1,21 +1,20 @@
 <md-toolbar color="primary"> Login </md-toolbar>
 
-<!-- I HAVE TO MAKE THIS DIV CENTER-->
-
 <div class="container">
 
   <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
-      
-      <md-input-container>
-        <input mdInput placeholder="Enter Email" [(ngModel)]="Email" type="email"/>
-      </md-input-container>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Password" [(ngModel)]="Password" type="password"/>
-      </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Enter Email" [(ngModel)]="Email" type="email" />
+    </md-input-container>
 
-      <button md-raised-button color="primary" (click)="Login()">Login</button>
+    <md-input-container>
+      <input mdInput placeholder="Enter Password" [(ngModel)]="Password" type="password" />
+    </md-input-container>
 
+    <button md-raised-button color="primary" (click)="Login()">Login</button>
+
+    <p>Or register as new <a routerLink="/signup" routerLinkActive="active">user</a></p>
   </div>
 
 </div>
