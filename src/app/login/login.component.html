@@ -1,20 +1,20 @@
 <md-toolbar color="primary"> Login </md-toolbar>
 
 <div class="container">
+  <form [formGroup]="loginForm" novalidate>
+    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+      <br><br><br>
+      <md-input-container>
+        <input mdInput placeholder="Enter Email" type="email" formControlName="email" />
+      </md-input-container>
 
-  <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+      <md-input-container>
+        <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
+      </md-input-container>
 
-    <md-input-container>
-      <input mdInput placeholder="Enter Email" [(ngModel)]="Email" type="email" />
-    </md-input-container>
+      <button md-raised-button color="primary" [disabled]="loginForm.status=='INVALID'" (click)="loginUser()">Login</button>
 
-    <md-input-container>
-      <input mdInput placeholder="Enter Password" [(ngModel)]="Password" type="password" />
-    </md-input-container>
-
-    <button md-raised-button color="primary" (click)="Login()">Login</button>
-
-    <p>Or register as new <a routerLink="/signup" routerLinkActive="active">user</a></p>
-  </div>
-
+      <p>Or register as new <a routerLink="/signup" routerLinkActive="active">user</a></p>
+    </div>
+  </form>
 </div>

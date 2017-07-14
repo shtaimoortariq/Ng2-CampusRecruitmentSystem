@@ -19,6 +19,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 // ------------- Routing
 import { AppRoutes } from './routes';
 import { HeaderComponent } from './header/header.component';
+import { ProfileComponent } from './profile/profile.component';
+
+//--------------Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -27,7 +34,8 @@ import { HeaderComponent } from './header/header.component';
     LoginComponent,
     SignupComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfileComponent
   ],
 
   imports: [
@@ -44,7 +52,11 @@ import { HeaderComponent } from './header/header.component';
     FlexLayoutModule,
     MdChipsModule,
     AppRoutes,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule, 
+    AngularFireAuthModule
+
   ],
 
   providers: [],

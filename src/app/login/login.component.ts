@@ -1,24 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [UserService]
 })
 export class LoginComponent implements OnInit {
 
-  Email: string = "";
-  Password: string = "";
+  loginForm: FormGroup;
 
-  constructor() { }
+  ngOnInit() {  }
 
-  ngOnInit() {
-
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.createForm();
   }
 
-  Login() {
-      console.log("My Email is: " +this.Email);
-      console.log("My Password is: " +this.Password);
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: ['taimoortariqdev@gmail.com', Validators.required],
+      password: ['123123', Validators.required]
+    })
+  }
+
+  loginUser() {
+    let status = this.userService.signInFirebaseUser(this.loginForm.value);
+    console.log(status);
   }
 
 }

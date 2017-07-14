@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="container">
+  <form [formGroup]="profileForm" novalidate>
+    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+
+      <br><br><br>
+      <md-input-container>
+        <input mdInput placeholder="Enter Name" type="text" formControlName="name" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Email" type="email" formControlName="userName" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Organization or Institute Name" type="text" formControlName="designation" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Location" type="text" formControlName="location" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Contact No" type="text" formControlName="contactNo" />
+      </md-input-container>
+
+      
+      <button md-raised-button color="primary" [disabled]="profileForm.status=='INVALID'" (click)="data()" routerLink="/dashboard">Save</button>
+
+
+    </div>
+  </form>
+
+
+</div>
