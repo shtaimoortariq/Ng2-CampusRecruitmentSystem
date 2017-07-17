@@ -1,30 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileService } from '../user-profile.service'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserProfileService } from '../user-profile.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-create-post',
+  templateUrl: './create-post.component.html',
+  styleUrls: ['./create-post.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class CreatePostComponent implements OnInit {
 
+  jobForm: FormGroup;
   userProfile: FirebaseObjectObservable<any>;
   userDetails;
   showForm: boolean = true;
 
-  constructor(public userProfileService: UserProfileService, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
-    console.log(this.userProfileService.getUserProfile);
+  constructor(private fb: FormBuilder, public userProfileService: UserProfileService, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
+    this.createForm();
 
   }
-
-
 
   ngOnInit() {
     this.getProfile();
   }
 
+
+
+  createForm() {
+    this.jobForm = this.fb.group({
+
+      organizationName: ['', Validators.required],
+      jobTitle: ['Front End Developer', Validators.required],
+      jobDetails: ['Experience 5 years', Validators.required]
+
+    })
+  }
 
   getProfile() {
 
@@ -44,6 +55,11 @@ export class HeaderComponent implements OnInit {
         }
 
       })
+  }
+
+  createAPost() {
+    console.log(this.jobForm.value);
+
   }
 
 }

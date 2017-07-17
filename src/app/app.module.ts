@@ -26,7 +26,11 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { CreatePostComponent } from './create-post/create-post.component';
 
+
+import { UserProfileService } from './user-profile.service';
+import { ViewPostComponent } from './view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,9 @@ import { environment } from '../environments/environment';
     SignupComponent,
     DashboardComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreatePostComponent,
+    ViewPostComponent
   ],
 
   imports: [
@@ -59,7 +65,7 @@ import { environment } from '../environments/environment';
 
   ],
 
-  providers: [],
+  providers: [UserProfileService],
 
   bootstrap: [AppComponent]
 })

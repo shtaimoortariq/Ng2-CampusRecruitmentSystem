@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+
+<div *ngIf="showForm" class="container">
+  <form [formGroup]="jobForm" novalidate>
+    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+      <br><br><br>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Company" type="text" formControlName="organizationName" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Job Title" type="text" formControlName="jobTitle" />
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="Enter Job Details" type="text" formControlName="jobDetails" />
+      </md-input-container>
+
+
+      <button md-raised-button color="primary" [disabled]="jobForm.status=='INVALID'" (click)="createAPost()">Create Post</button>
+    </div>
+  </form>
+</div>

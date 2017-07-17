@@ -14,16 +14,16 @@
       </md-input-container>
 
       <md-input-container>
-        <input mdInput placeholder="Enter Organization or Institute Name" type="text" formControlName="designation" />
+        <input mdInput placeholder="Enter Organization or Institute Name" type="text" formControlName="institute" />
       </md-input-container>
 
-      <md-input-container>
+      <!--<md-input-container>
         <input mdInput placeholder="Enter Location" type="text" formControlName="location" />
       </md-input-container>
 
       <md-input-container>
         <input mdInput placeholder="Enter Contact No" type="text" formControlName="contactNo" />
-      </md-input-container>
+      </md-input-container>-->
 
       
       <button md-raised-button color="primary" [disabled]="profileForm.status=='INVALID'" (click)="data()" routerLink="/dashboard">Save</button>

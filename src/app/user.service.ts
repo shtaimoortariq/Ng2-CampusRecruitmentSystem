@@ -12,6 +12,7 @@ export class UserService {
 
   studentRegistration: FirebaseObjectObservable<any>;
   companyRegistration: FirebaseObjectObservable<any>;
+  userProfile: FirebaseObjectObservable<any>;
 
   //------------Create Firebase User
   createFirebaseUser(signupForm: any): Promise<string> {
@@ -20,11 +21,14 @@ export class UserService {
         console.log(data);
         this.studentRegistration = this.db.object('/studentRegistration/' + this.afAuth.auth.currentUser.uid);
         this.companyRegistration = this.db.object('/companyRegistration/' + this.afAuth.auth.currentUser.uid);
+        this.userProfile = this.db.object('/profiles/' + this.afAuth.auth.currentUser.uid);
+        this.userProfile.set(signupForm);
+
         if (signupForm.designation == 'student')
           this.studentRegistration.set(signupForm);
+
         else
           this.companyRegistration.set(signupForm);
-
 
         this.router.navigate(['/dashboard']);
       })
@@ -48,5 +52,9 @@ export class UserService {
     return Promise.resolve("true");
 
   }
+
+  //---------------firebase profile
+
+
 
 }
