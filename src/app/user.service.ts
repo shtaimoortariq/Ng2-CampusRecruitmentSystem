@@ -18,7 +18,6 @@ export class UserService {
   createFirebaseUser(signupForm: any): Promise<string> {
     this.afAuth.auth.createUserWithEmailAndPassword(signupForm.userName, signupForm.password)
       .then((data) => {
-        console.log(data);
         this.studentRegistration = this.db.object('/studentRegistration/' + this.afAuth.auth.currentUser.uid);
         this.companyRegistration = this.db.object('/companyRegistration/' + this.afAuth.auth.currentUser.uid);
         this.userProfile = this.db.object('/profiles/' + this.afAuth.auth.currentUser.uid);
@@ -33,8 +32,7 @@ export class UserService {
         this.router.navigate(['/dashboard']);
       })
       .catch(error => alert(error.message));
-    console.log(signupForm);
-
+    
     return Promise.resolve("true");
   }
 
@@ -44,11 +42,9 @@ export class UserService {
 
     this.afAuth.auth.signInWithEmailAndPassword(loginForm.email, loginForm.password)
       .then((data) => {
-        console.log(data);
         this.router.navigate(['/dashboard']);
       })
       .catch(error => alert(error.message));
-    console.log(loginForm);
     return Promise.resolve("true");
 
   }

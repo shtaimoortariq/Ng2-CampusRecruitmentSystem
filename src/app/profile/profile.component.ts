@@ -97,10 +97,7 @@ export class ProfileComponent implements OnInit {
 
     this.userProfile = this.db.object('/profiles/' + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true })
     this.userProfile.subscribe(snapshots => {
-      console.log(snapshots.key);
-      console.log(snapshots.val());
       this.currentProfile = snapshots.val();
-      console.log(this.currentProfile);
       setTimeout(() => {
         this.profileForm.setValue({
           name: snapshots.val().name,

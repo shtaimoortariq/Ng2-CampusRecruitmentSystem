@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(public userProfileService: UserProfileService, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     console.log(this.userProfileService.getUserProfile);
-
   }
 
 
@@ -31,18 +30,13 @@ export class HeaderComponent implements OnInit {
     this.userProfile = this.db.object('/profiles/' + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
     this.userProfile
       .subscribe(snapshots => {
-        console.log(snapshots.key);
-        console.log(snapshots.val());
         this.userDetails = snapshots.val();
-        console.log(this.userDetails);
-
         if (this.userDetails.designation == 'student') {
           this.showForm = false
         }
         else {
           this.showForm = true;
         }
-
       })
   }
 

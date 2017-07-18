@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.loginForm = this.fb.group({
-      email: ['taimoortariqdev@gmail.com', Validators.required],
+      email: ['ttaimoortariqdev@gmail.com', Validators.required],
       password: ['123123', Validators.required]
     })
   }
 
   loginUser() {
     let status = this.userService.signInFirebaseUser(this.loginForm.value);
-    console.log(status);
+   
   }
 
 }

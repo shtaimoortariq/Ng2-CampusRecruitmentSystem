@@ -32,7 +32,6 @@ export class SignupComponent implements OnInit {
 
   signupUser() {
     let status = this.userService.createFirebaseUser(this.signupForm.value);
-    console.log(status);
   }
 
 }

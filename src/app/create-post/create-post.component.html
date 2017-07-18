@@ -20,6 +20,14 @@
 
 
       <button md-raised-button color="primary" [disabled]="jobForm.status=='INVALID'" (click)="createAPost()">Create Post</button>
+      <button md-raised-button color="primary" [disabled]="jobForm.status=='INVALID'" (click)="updateAPost()">Update Post</button>
+
     </div>
   </form>
+</div>
+
+
+<div *ngFor="let AllJobPost of allJobPost; let i = index">
+  <p>{{AllJobPost.organizationName}} | {{AllJobPost.jobTitle}} | {{AllJobPost.jobDetails}}</p>
+  <button md-button (click)="editAPost(i)">Edit</button>
 </div>
