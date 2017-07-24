@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 // ------------ Angular Material Libraries 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdRadioModule, MdChipsModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdRadioModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
@@ -15,6 +15,8 @@ import 'hammerjs';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ViewPostComponent } from './view-post/view-post.component';
+
 
 // ------------- Routing
 import { AppRoutes } from './routes';
@@ -30,7 +32,9 @@ import { CreatePostComponent } from './create-post/create-post.component';
 
 
 import { UserProfileService } from './user-profile.service';
-import { ViewPostComponent } from './view-post/view-post.component';
+import { AuthGuard } from './authGuard';
+import { UserService } from "./user.service";
+import { ApplyForJobComponent } from './apply-for-job/apply-for-job.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
     HeaderComponent,
     ProfileComponent,
     CreatePostComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    ApplyForJobComponent
   ],
 
   imports: [
@@ -57,7 +62,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
     MdToolbarModule,
     FlexLayoutModule,
     MdChipsModule,
-    AppRoutes,
+    MdCardModule,
+    AppRoutes,  
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, 
@@ -65,7 +71,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
 
   ],
 
-  providers: [UserProfileService],
+  providers: [UserService, UserProfileService, AuthGuard],
 
   bootstrap: [AppComponent]
 })

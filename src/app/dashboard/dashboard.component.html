@@ -11,12 +11,101 @@
             <p>a</p>
         </div>
     </div>
-    <div fxFlex="60" style="background-color: blue">
-        <p>b</p>
-        <!--<div *ngFor="let user of userProfile | async">
-            <p class="user-txt">{{userProfile.designation | async}}</p>
-            <p class="name">user by: <strong>{{userProfile.name | async}}</strong></p>
-        </div>-->
+    <div fxFlex="60">
+
+        <div *ngIf="showForm">
+            <table cellspacing='0'>
+                <!-- cellspacing='0' is important, must stay -->
+
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <!-- Table Header -->
+
+                <!-- Table Body -->
+                <tbody>
+
+                    <tr *ngFor="let value of allCompanyOrStudentData; let i = index">
+                        <td>{{value.name}}</td>
+                        <td>{{value.userName}}</td>
+                        <td>{{value.institute}}</td>
+
+                    </tr>
+                    <!-- Table Row -->
+
+                </tbody>
+                <!-- Table Body -->
+
+            </table>
+        </div>
+
+        <!-- ADMIN IS TRUE  -->
+        <div *ngIf="isAdmin">
+            <h1>Company</h1>
+            <table cellspacing='0'>
+                <!-- cellspacing='0' is important, must stay -->
+
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Company Name</th>
+                    </tr>
+                </thead>
+                <!-- Table Header -->
+
+                <!-- Table Body -->
+                <tbody>
+
+                    <tr *ngFor="let value of allCompany; let i = index">
+                        <td>{{value.name}}</td>
+                        <td>{{value.userName}}</td>
+                        <td>{{value.institute}}</td>
+
+                    </tr>
+                    <!-- Table Row -->
+
+                </tbody>
+                <!-- Table Body -->
+
+            </table>
+
+
+            <h1>Student</h1>
+             <table cellspacing='0'>
+                <!-- cellspacing='0' is important, must stay -->
+
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>University Name</th>
+                    </tr>
+                </thead>
+                <!-- Table Header -->
+
+                <!-- Table Body -->
+                <tbody>
+
+                    <tr *ngFor="let value of allStudent; let i = index">
+                        <td>{{value.name}}</td>
+                        <td>{{value.userName}}</td>
+                        <td>{{value.institute}}</td>
+
+                    </tr>
+                    <!-- Table Row -->
+
+                </tbody>
+                <!-- Table Body -->
+
+            </table>
+        </div>
 
     </div>
     <div fxFlex style="background-color:green">
@@ -28,6 +117,6 @@
 
 
 <!-- fxLayoutAlign="end center"-->
-        <!--<div *ngFor="let i of userProfile">
+<!--<div *ngFor="let i of userProfile">
                     app-header
             </div>-->

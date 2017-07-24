@@ -2,38 +2,39 @@
 <md-toolbar color="primary"> Signup </md-toolbar>
 
 <div class="container">
-  <form [formGroup]="signupForm" novalidate>
-    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+  <div fxLayout="row" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="50">
+    <form [formGroup]="signupForm" fxLayout="column" novalidate>
+      
 
-      <br><br><br>
-      <md-input-container>
-        <input mdInput placeholder="Enter Name" type="text" formControlName="name" />
-      </md-input-container>
+        <br><br><br>
+        <md-input-container>
+          <input mdInput placeholder="Enter Name" type="text" formControlName="name" />
+        </md-input-container>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Email" type="email" formControlName="userName" />
-      </md-input-container>
+        <md-input-container>
+          <input mdInput placeholder="Enter Email" type="email" formControlName="userName" />
+        </md-input-container>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
-      </md-input-container>
+        <md-input-container>
+          <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
+        </md-input-container>
 
-      <md-radio-group formControlName="designation">
-        <md-radio-button value="student">Student</md-radio-button>
-        <md-radio-button value="organization">Organization</md-radio-button>
-      </md-radio-group>
+        <md-radio-group formControlName="designation">
+          <md-radio-button value="student">Student</md-radio-button>
+          <md-radio-button value="organization">Organization</md-radio-button>
+        </md-radio-group>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Organization or Institute Name" type="text" formControlName="institute" />
-      </md-input-container>
+        <md-input-container>
+          <input mdInput placeholder="Enter Organization or Institute Name" type="text" formControlName="institute" />
+        </md-input-container>
 
-      <button md-raised-button color="primary" [disabled]="signupForm.status=='INVALID'" (click)="signupUser()">Signup</button>
+        <button md-raised-button color="primary" [disabled]="signupForm.status=='INVALID'" (click)="signupUser()">Signup</button>
 
-      <br><br>
-      <p>already have account <a routerLink="/login" routerLinkActive="active">Login</a> </p>
+        <br><br>
+        <p>already have account <a routerLink="/login" routerLinkActive="active">Login</a> </p>
 
-    </div>
-  </form>
-
-
+      
+    </form>
+</div>
+   <img src="../../assets/signupImage.jpg" />
 </div>

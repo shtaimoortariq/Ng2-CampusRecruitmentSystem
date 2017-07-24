@@ -34,6 +34,9 @@ export class HeaderComponent implements OnInit {
         if (this.userDetails.designation == 'student') {
           this.showForm = false
         }
+        else if (this.userDetails.designation == 'admin') {
+          this.showForm = false
+        }
         else {
           this.showForm = true;
         }

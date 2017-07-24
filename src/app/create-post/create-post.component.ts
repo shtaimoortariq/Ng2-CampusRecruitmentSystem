@@ -13,6 +13,7 @@ export class CreatePostComponent implements OnInit {
 
   jobForm: FormGroup;
   userProfile: FirebaseObjectObservable<any>;
+  jobPostByCompany: FirebaseListObservable<any>;
   jobPost: FirebaseListObservable<any>;
   userDetails;
   showForm: boolean = true;
@@ -20,6 +21,9 @@ export class CreatePostComponent implements OnInit {
   allJobPost = [];
   allJobPostKey = [];
   editPostIndex = -1;
+  createPostButtonFlag = true;
+  updatePostButtonFlag = false;
+  applicantions = [];
 
   constructor(private fb: FormBuilder, public userProfileService: UserProfileService, public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     this.createForm();
@@ -27,19 +31,15 @@ export class CreatePostComponent implements OnInit {
     this.getJobPosts();
   }
 
-  ngOnInit() {
-
-    //  setTimeout(() => {
-
-    //  }, 5000)
-  }
+  ngOnInit() { }
 
   createForm() {
     this.jobForm = this.fb.group({
 
       organizationName: ['', Validators.required],
       jobTitle: ['Front End Developer', Validators.required],
-      jobDetails: ['Experience 5 years', Validators.required]
+      jobDetails: ['Experience 5 years', Validators.required],
+      companyUid: [this.afAuth.auth.currentUser.uid]
 
     })
   }
@@ -60,7 +60,9 @@ export class CreatePostComponent implements OnInit {
           this.jobForm.setValue({
             organizationName: snapshots.val().institute,
             jobTitle: 'Front End Developer',
-            jobDetails: 'Experience 5 years'
+            jobDetails: 'Experience 5 years',
+            companyUid: this.afAuth.auth.currentUser.uid
+
           })
         }
 
@@ -70,14 +72,15 @@ export class CreatePostComponent implements OnInit {
   createAPost() {
     this.allJobPost = [];
     this.allJobPostKey = [];
-    this.jobPost = this.db.list('/jobPost/' + this.afAuth.auth.currentUser.uid);
-    
-    this.jobPost.push(this.jobForm.value).then(res => {
-      
+    this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid);
+
+    this.jobPostByCompany.push(this.jobForm.value).then(res => {
+
       this.jobForm.setValue({
         organizationName: this.companyName,
         jobTitle: '',
-        jobDetails: ''
+        jobDetails: '',
+        companyUid: this.afAuth.auth.currentUser.uid
       })
 
     });
@@ -88,8 +91,8 @@ export class CreatePostComponent implements OnInit {
 
   getJobPosts() {
 
-    this.jobPost = this.db.list('/jobPost/' + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
-    this.jobPost.subscribe(snapshots => {
+    this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
+    this.jobPostByCompany.subscribe(snapshots => {
       snapshots.forEach(snapshot => {
         this.allJobPostKey.push(snapshot.key);
         this.allJobPost.push(snapshot.val());
@@ -99,26 +102,56 @@ export class CreatePostComponent implements OnInit {
   }
 
   editAPost(i) {
+
+    this.createPostButtonFlag = false;
+    this.updatePostButtonFlag = true;
+
     this.editPostIndex = i;
     console.log("update");
     console.log(i);
     console.log(this.allJobPost[i]);
     console.log(this.allJobPostKey[i]);
-    
+
     this.jobForm.setValue({
       organizationName: this.allJobPost[i].organizationName,
       jobTitle: this.allJobPost[i].jobTitle,
-      jobDetails: this.allJobPost[i].jobDetails
+      jobDetails: this.allJobPost[i].jobDetails,
+      companyUid: this.afAuth.auth.currentUser.uid
     })
 
-     
+
   }
 
-  updateAPost() {  
+  updateAPost() {
+    this.allJobPost = [];
+
     console.log("update");
     console.log(this.editPostIndex);
-    this.jobPost = this.db.list('/jobPost/' + this.afAuth.auth.currentUser.uid);  
-    this.jobPost.update(this.allJobPostKey[this.editPostIndex], this.jobForm.value).then((res)=> {this.createAPost()});
+    this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid);
+    this.jobPostByCompany.update(this.allJobPostKey[this.editPostIndex], this.jobForm.value).then((res) => {
+      this.jobForm.setValue({
+        organizationName: this.companyName,
+        jobTitle: '',
+        jobDetails: '',
+        companyUid: this.afAuth.auth.currentUser.uid
+      })
+
+      this.createPostButtonFlag = true;
+      this.updatePostButtonFlag = false;
+
+    });
+  }
+
+
+  viewApplications(i) {
+    this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid + '/' + this.allJobPostKey[i] + '/' + 'applications', { preserveSnapshot: true });
+    this.jobPostByCompany.subscribe(snapshots => {
+      this.applicantions = [];
+      snapshots.forEach(snapshot => {
+        this.applicantions.push(snapshot.val());
+        console.log(this.applicantions);
+      });
+    })
   }
 
 }

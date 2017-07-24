@@ -1,33 +1,121 @@
 <app-header></app-header>
 
 
-<div *ngIf="showForm" class="container">
-  <form [formGroup]="jobForm" novalidate>
-    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
-      <br><br><br>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Company" type="text" formControlName="organizationName" />
-      </md-input-container>
+<div fxLayout="row">
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Job Title" type="text" formControlName="jobTitle" />
-      </md-input-container>
+  <div fxFlex="30">
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Job Details" type="text" formControlName="jobDetails" />
-      </md-input-container>
+    <div fxLayout="column">
+
+      <div *ngIf="showForm" class="container">
+        <form [formGroup]="jobForm" novalidate>
+          <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
+            <br><br><br>
+
+            <md-input-container>
+              <input mdInput placeholder="Enter Company" type="text" formControlName="organizationName" />
+            </md-input-container>
+
+            <md-input-container>
+              <input mdInput placeholder="Enter Job Title" type="text" formControlName="jobTitle" />
+            </md-input-container>
+
+            <md-input-container>
+              <input mdInput placeholder="Enter Job Details" type="text" formControlName="jobDetails" />
+            </md-input-container>
+
+            <div *ngIf="false">
+              <md-input-container>
+                <input mdInput placeholder="Enter Job Details" type="text" formControlName="companyUid" />
+              </md-input-container>
 
 
-      <button md-raised-button color="primary" [disabled]="jobForm.status=='INVALID'" (click)="createAPost()">Create Post</button>
-      <button md-raised-button color="primary" [disabled]="jobForm.status=='INVALID'" (click)="updateAPost()">Update Post</button>
+            </div>
 
+            <button md-raised-button color="primary" *ngIf="createPostButtonFlag" [disabled]="jobForm.status=='INVALID'" (click)="createAPost()">Create Post</button>
+            <button md-raised-button color="primary" *ngIf="updatePostButtonFlag" [disabled]="jobForm.status=='INVALID'" (click)="updateAPost()">Update Post</button>
+
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
+
+  <div fxFlex="70">
+    <table cellspacing='0'>
+      <!-- cellspacing='0' is important, must stay -->
+
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <!-- Table Header -->
+
+      <!-- Table Body -->
+      <tbody>
+
+        <tr *ngFor="let AllJobPost of allJobPost; let i = index">
+          <td>{{AllJobPost.organizationName}}</td>
+          <td>{{AllJobPost.jobTitle}}</td>
+          <td>{{AllJobPost.jobDetails}}</td>
+          <td><button md-button (click)="editAPost(i)">Edit</button></td>
+          <td><button md-button (click)="viewApplications(i)">View Applications</button></td>
+        </tr>
+        <!-- Table Row -->
+
+      </tbody>
+      <!-- Table Body -->
+
+    </table>
+
+  </div>
+
+
+  <!-- <div fxFlex style="background-color:green">
+    <p>c</p>
+  </div> -->
+
 </div>
 
 
-<div *ngFor="let AllJobPost of allJobPost; let i = index">
-  <p>{{AllJobPost.organizationName}} | {{AllJobPost.jobTitle}} | {{AllJobPost.jobDetails}}</p>
-  <button md-button (click)="editAPost(i)">Edit</button>
-</div>
+
+<!-- <div *ngFor="let app of applicantions; let i = index">
+  <p>{{app.name}} | {{app.userName}} | {{app.institute}}</p>
+</div> -->
+
+
+ <table cellspacing='0'>
+            <!-- cellspacing='0' is important, must stay -->
+
+            <!-- Table Header -->
+            <thead>
+                <tr>View Applicantions</tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>university</th>
+                </tr>
+            </thead>
+            <!-- Table Header -->
+
+            <!-- Table Body -->
+            <tbody>
+               
+                    <tr *ngFor="let app of applicantions; let i = index">
+                        <td>{{app.name}}</td>
+                        <td>{{app.userName}}</td>
+                        <td>{{app.institute}}</td>
+
+                    </tr>
+                    <!-- Table Row -->
+               
+            </tbody>
+            <!-- Table Body -->
+
+        </table>

@@ -13,6 +13,7 @@ export class UserService {
   studentRegistration: FirebaseObjectObservable<any>;
   companyRegistration: FirebaseObjectObservable<any>;
   userProfile: FirebaseObjectObservable<any>;
+  isLogin = false;
 
   //------------Create Firebase User
   createFirebaseUser(signupForm: any): Promise<string> {
@@ -42,14 +43,24 @@ export class UserService {
 
     this.afAuth.auth.signInWithEmailAndPassword(loginForm.email, loginForm.password)
       .then((data) => {
+        this.isLogin = true;
+        console.log(this.isLogin);
+        
         this.router.navigate(['/dashboard']);
       })
-      .catch(error => alert(error.message));
+      .catch(error => {
+        alert(error.message)
+        this.isLogin = false;
+      });
     return Promise.resolve("true");
 
   }
 
   //---------------firebase profile
+  getStatus() : boolean {
+    return this.isLogin;
+  }
+
 
 
 

@@ -1,3 +1,57 @@
-<p>
-  view-post works!
-</p>
+<app-header></app-header>
+<div *ngIf="!deleteButton">
+  <table cellspacing='0'>
+    <!-- cellspacing='0' is important, must stay -->
+
+    <!-- Table Header -->
+    <thead>
+      <tr>
+        <th>Organization Name</th>
+        <th>Job Title</th>
+        <th>Job Details</th>
+        <th>Apply</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let value of allJobPostVal; let i = index">
+        <td>{{value.organizationName}}</td>
+        <td>{{value.jobTitle}}</td>
+        <td>{{value.jobDetails}}</td>
+        <td><button md-button (click)="applyForPost(i)">Apply</button></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+</div>
+
+
+
+<div *ngIf="deleteButton">
+  <table cellspacing='0'>
+
+    <thead>
+      <tr>
+        <th>Organization Name</th>
+        <th>Job Title</th>
+        <th>Job Details</th>
+        <th>Delete Post</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let value of allJobPostVal; let i = index">
+        <td>{{value.organizationName}}</td>
+        <td>{{value.jobTitle}}</td>
+        <td>{{value.jobDetails}}</td>
+        <td><button md-button (click)="DeletePost(i)">Delete</button></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

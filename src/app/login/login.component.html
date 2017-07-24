@@ -2,20 +2,30 @@
 <md-toolbar color="primary"> Login </md-toolbar>
 
 <div class="container">
-  <form [formGroup]="loginForm" novalidate>
-    <div fxLayout="column" fxLayoutAlign="center center" class="content" class="blocks" fxFlex="100%">
-      <br><br><br>
-      <md-input-container>
-        <input mdInput placeholder="Enter Email" type="email" formControlName="email" />
-      </md-input-container>
 
-      <md-input-container>
-        <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
-      </md-input-container>
+  <div fxLayoutAlign="center center" class="content" class="blocks" fxFlex="50">
+    <br><br><br>
+   
+      <form [formGroup]="loginForm" fxLayout="column" novalidate>
 
-      <button md-raised-button color="primary" [disabled]="loginForm.status=='INVALID'" (click)="loginUser()">Login</button>
+        
 
-      <p>Or register as new <a routerLink="/signup" routerLinkActive="active">user</a></p>
-    </div>
-  </form>
+        <md-input-container>
+          <input mdInput placeholder="Enter Email" type="email" formControlName="email" />
+        </md-input-container>
+
+        <md-input-container>
+          <input mdInput placeholder="Enter Password" type="password" formControlName="password" />
+        </md-input-container>
+
+        <button md-raised-button color="primary" [disabled]="loginForm.status=='INVALID'" (click)="loginUser()">Login</button>
+
+        <p>Or register as new <a routerLink="/signup" routerLinkActive="active">user</a></p>
+
+      </form>
+    
+  </div>
+
+   <md-card><img src="../../assets/teacher.jpg" /></md-card>
+
 </div>
