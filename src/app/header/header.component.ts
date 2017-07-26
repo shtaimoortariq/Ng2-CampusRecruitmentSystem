@@ -31,7 +31,11 @@ export class HeaderComponent implements OnInit {
     this.userProfile
       .subscribe(snapshots => {
         this.userDetails = snapshots.val();
-        if (this.userDetails.designation == 'student') {
+        
+        if(this.userDetails == null) {
+            alert("clear");
+        }
+        else if (this.userDetails.designation == 'student') {
           this.showForm = false
         }
         else if (this.userDetails.designation == 'admin') {

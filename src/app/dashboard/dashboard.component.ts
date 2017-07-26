@@ -15,14 +15,26 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   showForm: boolean;
   isAdmin = false;
-  userProfile: FirebaseObjectObservable<any>;
   userDetails;
+  uid;
+  adminUid;
+  userProfile: FirebaseObjectObservable<any>;
+  userProfileList: FirebaseListObservable<any>;
   studentRegistration: FirebaseObjectObservable<any>;
+  studentRegistrationList: FirebaseListObservable<any>;
   companyRegistration: FirebaseObjectObservable<any>;
+  companyRegistrationList: FirebaseListObservable<any>;
+  jobPostByCompany: FirebaseListObservable<any>;
+  jobPostList: FirebaseObjectObservable<any>;
+
   allCompanyOrStudentData = [];
   allCompany = [];
+  allCompanyKey = [];
   allStudent = [];
-  uid;
+  allStudentKey = [];
+  applicantions = [];
+
+
   constructor(public userProfileService: UserProfileService,
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
@@ -35,6 +47,7 @@ export class DashboardComponent implements OnInit {
 
 
   getProfile() {
+
     this.studentRegistration = this.db.object('/studentRegistration/', { preserveSnapshot: true });
     this.companyRegistration = this.db.object('/companyRegistration/', { preserveSnapshot: true });
 
@@ -42,8 +55,8 @@ export class DashboardComponent implements OnInit {
     this.userProfile
       .subscribe(snapshots => {
         this.userDetails = snapshots.val();
-
-
+        console.log(snapshots.val());
+        console.log(this.isAdmin);
         if (this.userDetails == null) {
           console.log("You are blocked by admin");
           alert("You are blocked by admin");
@@ -75,18 +88,27 @@ export class DashboardComponent implements OnInit {
 
         else if (this.userDetails.designation == 'admin') {
           this.isAdmin = true;
+          this.adminUid = this.afAuth.auth.currentUser.uid;
           this.companyRegistration.subscribe((snapshots) => {
+            this.allCompanyKey = [];
+            this.allCompany = [];
             snapshots.forEach(element => {
+              this.allCompanyKey.push(element.key);
               this.allCompany.push(element.val());
+              console.log(this.allCompanyKey);
               console.log(this.allCompany);
 
             });
           })
 
           this.studentRegistration.subscribe((snapshots) => {
+            this.allStudentKey = [];
+            this.allStudent = [];
             snapshots.forEach(element => {
+              this.allStudentKey.push(element.key);
               this.allStudent.push(element.val());
               console.log(this.allStudent);
+              console.log(this.allStudentKey);
 
             });
           })
@@ -94,12 +116,65 @@ export class DashboardComponent implements OnInit {
 
         }
         else {
-          alert("w");
+          //console.log("You are blocked by admin");
+          alert("W");
+          //this.router.navigate(['/login']);
+
 
         }
 
 
       })
   }
+
+
+
+  DeleteAccountCompany(i) {
+    console.log(this.allCompanyKey[i]);
+
+    this.userProfile = this.db.object('/profiles/' + this.allCompanyKey[i]);
+    this.userProfile.set({ blockedProfile: true });
+
+    this.jobPostByCompany = this.db.list('/jobPostByCompany/', { preserveSnapshot: true });
+    this.jobPostByCompany.remove(this.allCompanyKey[i]);
+
+    this.companyRegistrationList = this.db.list('/companyRegistration/');
+    this.companyRegistrationList.remove(this.allCompanyKey[i]);
+
+
+
+
+  }
+
+  DeleteAccountStudent(i) {
+
+    // this.jobPostByCompany = this.db.list('/jobPostByCompany/', { preserveSnapshot: true });
+    // this.jobPostByCompany.subscribe(snapshots => {
+    //   snapshots.forEach(snapshot => {
+    //     this.applicantions.push(snapshot.val());
+    //     console.log(this.applicantions);
+    //       snapshot.forEach(data => { 
+    //         console.log(data.val());
+    //           data.forEach(datas => {
+    //               console.log(datas.val());
+
+    //           })
+
+    //       })
+
+    //   });
+    // })
+    this.userProfile = this.db.object('/profiles/' + this.allStudentKey[i]);
+    this.userProfile.set({ blockedProfile: true });
+    this.studentRegistrationList = this.db.list('/studentRegistration/');
+    this.studentRegistrationList.remove(this.allStudentKey[i]);
+
+
+
+
+    console.log(this.allStudentKey[i]);
+
+  }
+
 
 }

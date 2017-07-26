@@ -144,14 +144,14 @@ export class CreatePostComponent implements OnInit {
 
 
   viewApplications(i) {
-    this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid + '/' + this.allJobPostKey[i] + '/' + 'applications', { preserveSnapshot: true });
-    this.jobPostByCompany.subscribe(snapshots => {
-      this.applicantions = [];
-      snapshots.forEach(snapshot => {
-        this.applicantions.push(snapshot.val());
-        console.log(this.applicantions);
-      });
-    })
+      this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.afAuth.auth.currentUser.uid + '/' + this.allJobPostKey[i] + '/' + 'applications', { preserveSnapshot: true });
+      this.jobPostByCompany.subscribe(snapshots => {
+        this.applicantions = [];
+        snapshots.forEach(snapshot => {
+          this.applicantions.push(snapshot.val());
+          console.log(this.applicantions);
+        });
+      })
   }
 
 }

@@ -11,6 +11,8 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 export class ViewPostComponent implements OnInit {
 
   jobPost: FirebaseListObservable<any>;
+  jobPostByCompany: FirebaseListObservable<any>;
+  jobPostList : FirebaseObjectObservable<any>;
   allJobPostVal = [];
   allJobPost2 = [];
   allJobPostKey = [];
@@ -22,7 +24,7 @@ export class ViewPostComponent implements OnInit {
     console.log("asdfasf");
     this.getJobPosts();
     this.getProfile();
-    
+
   }
 
 
@@ -36,18 +38,18 @@ export class ViewPostComponent implements OnInit {
     this.userProfile
       .subscribe(snapshots => {
         this.userDetails = snapshots.val();
-        if(this.userDetails.designation == 'admin') {
-            this.deleteButton = true;
+        if (this.userDetails.designation == 'admin') {
+          this.deleteButton = true;
         }
-        
+
         console.log(this.userDetails);
-        
+
       })
   }
 
 
   getJobPosts() {
-    
+
     this.jobPost = this.db.list('/jobPostByCompany/', { preserveSnapshot: true });
     this.jobPost.subscribe(snapshots => {
 
@@ -68,9 +70,10 @@ export class ViewPostComponent implements OnInit {
   }
 
   DeletePost(i) {
-     console.log(this.allJobPostKey[i]);
+    console.log(this.allJobPostKey[i]);
     console.log(this.allJobPostVal[i]);
-
+        this.jobPostByCompany = this.db.list('/jobPostByCompany/' + this.allJobPostVal[i].companyUid +'/');
+        this.jobPostByCompany.remove(this.allJobPostKey[i]);
   }
 
   applyForPost(i) {
@@ -78,9 +81,8 @@ export class ViewPostComponent implements OnInit {
     console.log(this.allJobPostKey[i]);
     console.log(this.allJobPostVal[i]);
     console.log('/jobPostByCompany/' + this.allJobPostVal[i].companyUid + '/' + this.allJobPostKey[i] + '/')
-    this.jobPost = this.db.list('/jobPostByCompany/' + this.allJobPostVal[i].companyUid + '/' + this.allJobPostKey[i] + '/applications', { preserveSnapshot: true });
-    this.jobPost.push(this.userDetails);
-
+    this.jobPostList = this.db.object('/jobPostByCompany/' + this.allJobPostVal[i].companyUid + '/' + this.allJobPostKey[i] + '/applications/' +this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
+    this.jobPostList.set(this.userDetails);
   }
 
 }
